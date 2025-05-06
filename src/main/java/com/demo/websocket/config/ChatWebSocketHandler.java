@@ -33,7 +33,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             System.out.println("User disconnected: " + userId);
         }
     }
-
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         String fromUser = (String) session.getAttributes().get("userId");
@@ -47,13 +46,22 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         String response = String.format("{\"from\": \"%s\", \"message\": \"%s\"}", fromUser, msgText);
 
-        WebSocketSession targetSession = userSessions.get(toUser);
-        if (targetSession != null && targetSession.isOpen()) {
-            targetSession.sendMessage(new TextMessage(response));
-            System.out.println("Sent message from " + fromUser + " to " + toUser);
+        if ("all".equalsIgnoreCase(toUser)) {
+            for (WebSocketSession userSession : userSessions.values()) {
+                if (userSession.isOpen() && !userSession.getId().equals(session.getId())) {
+                    userSession.sendMessage(new TextMessage(response));
+                }
+            }
+            System.out.println("message from " + fromUser);
         } else {
-            System.out.println("User " + toUser + " not connected.");
+            // Send to specific user
+            WebSocketSession targetSession = userSessions.get(toUser);
+            if (targetSession != null && targetSession.isOpen()) {
+                targetSession.sendMessage(new TextMessage(response));
+                System.out.println("Sent message from " + fromUser + " to " + toUser);
+            } else {
+                System.out.println("User " + toUser + " not connected.");
+            }
         }
     }
-
 }
