@@ -29,26 +29,4 @@ public class WebSocketConfig implements WebSocketConfigurer {
                 .addInterceptors(new UserHandshakeInterceptor());
     }
 }
-//
-//        @Override
-//        public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-//            registry.addHandler(new MyWebSocketHandler(), "/tenant").setAllowedOrigins("*");
-//        }
-//    }
 
-//    @Override
-//    public void configureMessageBroker(MessageBrokerRegistry registry) {
-//        registry.enableSimpleBroker("/owner");
-//        // client to access your end point
-//        registry.setApplicationDestinationPrefixes("/tenant");
-//    }
-//
-//    @Override
-//    public void registerStompEndpoints(StompEndpointRegistry registry) {
-//        registry.addEndpoint("/request");
-//        registry.addEndpoint("/request").withSockJS();
-////     registry.addEndpoint("/ws")
-////             .setAllowedOrigins("http://localhost:8080")
-////             .withSockJS();
-//    }
-//}

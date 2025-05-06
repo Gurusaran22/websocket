@@ -55,37 +55,5 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             System.out.println("User " + toUser + " not connected.");
         }
     }
-//    private final Map<String, WebSocketSession> userSessions = new ConcurrentHashMap<>();
-//
-//    @Override
-//    public void afterConnectionEstablished(WebSocketSession session) {
-//        String userId = (String) session.getAttributes().get("userId");
-//        if (userId != null) {
-//            userSessions.put(userId, session);
-//            System.out.println("User connected: " + userId);
-//        }
-//    }
-//
-//    @Override
-//    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-//        String userId = (String) session.getAttributes().get("userId");
-//        if (userId != null) {
-//            userSessions.remove(userId);
-//            System.out.println("User disconnected: " + userId);
-//        }
-//    }
-//
-//    @Override
-//    public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-//        String fromUser = (String) session.getAttributes().get("userId");
-//
-//        String response = String.format("{\"from\": \"%s\", \"message\": \"%s\"}",
-//                fromUser, message.getPayload());
-//
-//        for (WebSocketSession ws : userSessions.values()) {
-//            if (ws.isOpen()) {
-//                ws.sendMessage(new TextMessage(response));
-//            }
-//        }
-//    }
+
 }
